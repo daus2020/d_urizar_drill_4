@@ -1,12 +1,10 @@
 from vehiculo import *
 # from vehiculo import Vehiculo, Automovil, Particular, Carga, Bicicleta, Motocicleta
 
-# import re
-
 
 # option 1:
 def part_1():
-    instances = []
+    cars = []
 
     qty_ins = int(input('Cuántos Vehículos desea insertar: '))
     print('')
@@ -20,11 +18,11 @@ def part_1():
         cilindrada = int(input('Inserte el cilindraje en cc: '))
         print('')
         car = Automovil(velocidad, cilindrada, marca, modelo, nro_ruedas)
-        instances.append(car)
+        cars.append(car)
 
     print('\nImprimiendo por pantalla los vehículos:\n')
 
-    for i, item in enumerate(instances):
+    for i, item in enumerate(cars):
         print(f'Datos del automóvil {i + 1} : {item}')
 
     # 1 : Marca Toyota, Modelo Yaris, 4 ruedas 120 Km/h, 800 cc
@@ -46,33 +44,23 @@ def part_2():
     motocicleta = Motocicleta("2T", "Doble Viga", 21,
                               "Deportiva", "BMW", "F800s", 2)
     # Motocicleta(motor, marco, nro_radios, tipo, marca, modelo, nro_ruedas)
+    instances = [particular, carga, bicicleta, motocicleta]
+    [print(instance) for instance in instances]
 
-    print(particular)
-    print(carga)
-    print(bicicleta)
-    print(motocicleta)
-
-    print('\nMotocicleta es instancia con relación a Vehículo: ',
-          isinstance(motocicleta, Vehiculo))
-    print('Motocicleta es instancia con relación a Automovil: ',
-          isinstance(motocicleta, Automovil))
-    print('Motocicleta es instancia con relación a Vehículo particular: ',
-          isinstance(motocicleta, Particular))
-    print('Motocicleta es instancia con relación a Vehículo de Carga: ',
-          isinstance(motocicleta, Carga))
-    print('Motocicleta es instancia con relación a Bicicleta: ',
-          isinstance(motocicleta, Bicicleta))
-    print('Motocicleta es instancia con relación a Motocicleta: ',
-          isinstance(motocicleta, Motocicleta))
+    print('')
+    all_classes = [Vehiculo, Automovil,
+                   Particular, Carga, Bicicleta, Motocicleta]
+    [print(
+        f'Motocicleta es instancia con relacion a {item.__name__}: {isinstance(motocicleta, item)}') for item in all_classes]
 
 
 # option 3.1 guardar_datos_csv:
 def part_3_1():
-    # instance = Particular(nro_puestos, velocidad, cilindrada, marca, modelo, nro_ruedas)
     particular = Particular(5,  "180", "500", "Ford", "Fiesta", 4)
+    # Particular(nro_puestos, velocidad, cilindrada, marca, modelo, nro_ruedas)
 
-    # inst = Carga(carga, velocidad, cilindrada, marca, modelo, nro_ruedas)
     carga = Carga("20000", 120, "10000", "Daft Trucks", "G 38", 10)
+    # Carga(carga, velocidad, cilindrada, marca, modelo, nro_ruedas)
 
     bicicleta = Bicicleta("Carrera", "Shimano", "MT Ranger", 2)
     # Bicicleta(tipo, marca, modelo, nro_ruedas)
@@ -81,19 +69,17 @@ def part_3_1():
                               "Deportiva", "BMW", "F800s", 2)
     # Motocicleta(motor, marco, nro_radios, tipo, marca, modelo, nro_ruedas)
 
-    particular.guardar_datos_csv()
-    carga.guardar_datos_csv()
-    bicicleta.guardar_datos_csv()
-    motocicleta.guardar_datos_csv()
+    instances = [particular, carga, bicicleta, motocicleta]
+    [item .guardar_datos_csv() for item in instances]
 
 
 # option 3.2 leer_datos_csv:
 def part_3_2():
-    # instance = Particular(nro_puestos, velocidad, cilindrada, marca, modelo, nro_ruedas)
     particular = Particular(5,  "180", "500", "Ford", "Fiesta", 4)
+    # Particular(nro_puestos, velocidad, cilindrada, marca, modelo, nro_ruedas)
 
-    # inst = Carga(carga, velocidad, cilindrada, marca, modelo, nro_ruedas)
     carga = Carga("20000", 120, "10000", "Daft Trucks", "G 38", 10)
+    # Carga(carga, velocidad, cilindrada, marca, modelo, nro_ruedas)
 
     bicicleta = Bicicleta("Carrera", "Shimano", "MT Ranger", 2)
     # Bicicleta(tipo, marca, modelo, nro_ruedas)
@@ -102,19 +88,8 @@ def part_3_2():
                               "Deportiva", "BMW", "F800s", 2)
     # Motocicleta(motor, marco, nro_radios, tipo, marca, modelo, nro_ruedas)
 
-    leer_datos_csv()
-
-    # Vehiculo.leer_datos_csv()  --> if static method is inside class Vehiculo
-
-    # Alt. 2 (profe) uncomment to use it and comment line 100 and 117 to 146 in vehiculo.py
-    # particular.leer_datos_csv()
-    # carga.leer_datos_csv()
-    # bicicleta.leer_datos_csv()
-    # motocicleta.leer_datos_csv()
-
-    # Alt. 3 (variacion profe usando list comprehension)
-    # instances = [particular, carga, bicicleta, motocicleta]
-    # [item .leer_datos_csv() for item in instances]
+    instances = [particular, carga, bicicleta, motocicleta]
+    [item .leer_datos_csv() for item in instances]
 
 
 def menu():

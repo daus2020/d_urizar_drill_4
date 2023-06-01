@@ -1,6 +1,5 @@
 import csv
 import re
-# import climage
 
 
 class Vehiculo:
@@ -23,22 +22,24 @@ class Vehiculo:
         except Exception as e:
             print('Error: ', e)
 
-    # Alt. profe
-    # def leer_datos_csv(self):
-    #     try:
-    #         with open('vehiculos.csv', 'r') as archivo:
-    #             vehiculos = csv.reader(archivo)
-    #             print(f'Lista de Vehiculos {type(self).__name__}')
+    def leer_datos_csv(self):
+        try:
+            with open('vehiculos.csv', 'r') as archivo:
+                vehiculos = csv.reader(archivo)
+                print(f'Lista de Vehiculos {type(self).__name__}')
 
-    #             for item in vehiculos:
-    #                 vehiculo_tipo = str(self.__class__)
-    #                 if vehiculo_tipo in item[0]:
-    #                     print(item[1])
+                for item in vehiculos:
+                    # obs.: class_name is between . and '
+                    class_name = re.match(
+                        r"^.*\.(.*)'.*$", item[0]).group(1)
+                    if class_name == type(self).__name__:
+                        print(item[1])
+                print('')
 
-    #     except FileNotFoundError:
-    #         print('Archivo vehiculos.csv no existe')
-    #     except Exception as e:
-    #         print('Error: ', e)
+        except FileNotFoundError:
+            print('Archivo vehiculos.csv no existe')
+        except Exception as e:
+            print('Error: ', e)
 
     def __str__(self):
         return f'Marca {self.marca}, Modelo {self.modelo}, {self.nro_ruedas} ruedas'
@@ -116,35 +117,3 @@ class Motocicleta(Bicicleta):
 
     def __str__(self):
         return super().__str__() + f', Motor: {self.motor}, Cuadro: {self.cuadro}, Nro. Radios: {self.nro_radios}'
-
-
-def leer_datos_csv():
-    try:
-        with open('vehiculos.csv', 'r') as archivo:
-            vehiculos = csv.reader(archivo)
-
-            all_classes = []
-            # feeding all_classes list extracting Particular in: <class 'vehiculo.Particular'>
-            # obs.: Particular and all other classes are between . and '
-            for item in vehiculos:
-                class_name = re.match(r"^.*\.(.*)'.*$", item[0]).group(1)
-                if class_name not in all_classes:
-                    all_classes.append(class_name)
-
-                    # locals() converts string class_name to a variable name and assign its first value as a list
-                    locals()[class_name] = [item[1]]
-                else:
-                    locals()[class_name] += [item[1]]
-
-            # useful if subclass has more than one instance (group by subclasses)
-            for subclass in all_classes:
-                print(f'Lista de Vehiculos {subclass}')
-                [print(instance) for instance in locals()[subclass]]
-
-                print('')
-
-    except FileNotFoundError:
-        print('Archivo vehiculos.csv no existe')
-
-    except Exception as e:
-        print('Error: ', e)

@@ -88,8 +88,6 @@ class Carga(Automovil):
 class Bicicleta(Vehiculo):
     def __init__(self, tipo, *args):
         super().__init__(*args)
-    # def __init__(self, marca, modelo, nro_ruedas, tipo):
-    #     super().__init__(marca, modelo, nro_ruedas)
         self.tipo = tipo
 
     def get_tipo(self):
